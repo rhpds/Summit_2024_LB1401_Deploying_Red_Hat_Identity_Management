@@ -7,7 +7,7 @@ nav:
 
 asciidoc:
   attributes:
-    lab_name: "Deploying Red Hat Identity Management as a lazy sysadmin"
+    lab_name: "I'm the lab_name var"
     release-version: master
     page-pagination: true
     my_var: "foo"
@@ -20,5 +20,3 @@ asciidoc:
       text: Red Hat
     - url: https://www.redhat.com/en/summit
       text: Summit
-    - url: https://github.com/freeipa/ansible-freeipa
-      text: ansible-freeipa Docs
