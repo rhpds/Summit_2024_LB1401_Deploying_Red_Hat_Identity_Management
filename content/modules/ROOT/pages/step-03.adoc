@@ -1,0 +1,118 @@
+= Step 3 - Client install
+
+== Inventory
+=== Additional hosts
+----
+    ipaclients:
+      hosts: 
+        client9.{{ shortname }}.example.opentlc.com:
+----
+=== Additional variables
+----
+# IdM DNS
+    idm_dns:
+      - { idm_srv: "idm.{{ domain }}", idm_ip: "{{ 192.168.{{ third }}.92 }}" }
+# RHEL variables
+    network_connections:
+    - name: "{{ ansible_default_ipv4.alias }}"
+      state: up
+      type: ethernet
+      persistent_state: present
+      ip:
+        dhcp4: false
+        dns: "{{ idm_DNS1 }}"
+        address: "{{ ansible_default_ipv4.address }}/24"
+        gateway4: "{{ ansible_default_ipv4.gateway }}"
+----
+
+=== Current
+----
+all:
+  children:
+    ipaserver:      
+      hosts: 
+        idm.{{ shortname }}.example.opentlc.com:
+    ipaclients:
+      hosts: 
+        client9.{{ shortname }}.example.opentlc.com:
+  vars:
+# Global variables
+    admin_password: {admin} # Administrator password used for all applications
+    root_domain: "example.opentlc.com" # Root domain (also used as Windows domain)
+    shortname: {guid} # Sub-domain
+    domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
+    third: "9" # Third octect of subnet used.
+    user_password: "Redhat123"
+# IdM variables
+    ipaserver_domain: "{{ domain }}"
+    ipaserver_realm: "{{ domain | upper }}"
+    ipaserver_setup_dns: true
+    ipaserver_setup_adtrust: true
+    ipaserver_reverse_zones: "{{ third }}.168.192.in-addr.arpa"
+    ipaserver_allow_zone_overlap: true
+    ipaserver_no_forwarders: true
+    ipaserver_no_dnssec_validation: true
+    ipaserver_netbios_name: "{{ shortname | upper }}"
+    ipaserver_firewalld_zone: public
+    ipareplica_no_forwarders: true
+    ipareplica_setup_adtrust: true
+    ipareplica_no_dnssec_validation: true
+    ipareplica_setup_ca: true
+    ipareplica_setup_dns: true
+    ipareplica_firewalld_zone: public
+    ipaclient_mkhomedir: true
+# IdM password variables, do not use same one for Prod/Dev. Same only for demo/POC
+    ipaadmin_password: "{{ admin_password }}" # IdM admin password
+    ipadm_password: "{{ admin_password }}" # IdM directory manager password
+# IdM User Creation
+    idm_users: # IPA users
+      - { idm_name: dauston, idm_first: Duncan, idm_last: Auston, id: 10001, ipa_group: idm-users }
+      - { idm_name: anadine, idm_first: Angie, idm_last: Nadine, id: 10002, ipa_group: idm-users }
+      - { idm_name: sbronte, idm_first: Sammy, idm_last: Bronte, id: 10003, ipa_group: idm-users }
+    idm_admins: # IdM admins name
+      - { idm_name: jsmith_idm, idm_first: John, idm_last: Smith, ipa_group: idm-admins }
+      - { idm_name: sjones_idm, idm_first: Susan, idm_last: Jones, ipa_group: idm-admins }
+    idp_admins: # IDP admins
+      - { idm_name: jsmith_azure, idm_first: John, idm_last: Smith, ipa_group: idm-admins, idp_ref: "Entra ID(Azure AD)", idp_name: "jsmith@example.com", authtype: idp }
+      - { idm_name: sjones_azure, idm_first: Susan, idm_last: Jones, ipa_group: idm-admins, idp_ref: "Entra ID(Azure AD)", idp_name: "sjones@example.com", authtype: idp }
+# IdM Group creation
+    idm_groups:
+      - { ipa_group: "idm-users", ipa_grpDesc: "IdM users group" }
+      - { ipa_group: "idm-admins", ipa_grpDesc: "IdM administrators group" }
+    idm_host_group: "ipa_clients" # hostgroup name
+# IdM Defaults
+    idm_shell: "/bin/bash"
+# IdM IDP creation
+    idm_idp:
+      - { idp_name: "Entra ID(Azure AD)", idp_provider: "microsoft", idp_clientid: "Test", idp_secret: "Test", idp_org: "Test" }
+# IdM DNS
+    idm_dns:
+      - { idm_srv: "idm.{{ domain }}", idm_ip: "{{ 192.168.{{ third }}.92 }}" }
+# RHEL variables
+    network_connections:
+    - name: "{{ ansible_default_ipv4.alias }}"
+      state: up
+      type: ethernet
+      persistent_state: present
+      ip:
+        dhcp4: false
+        dns: "{{ idm_DNS1 }}"
+        address: "{{ ansible_default_ipv4.address }}/24"
+        gateway4: "{{ ansible_default_ipv4.gateway }}"
+----
+
+== Server playbook
+----
+---
+# Configure client DNS to point to IdM server and install client
+- name: Update nameserver entry on ipareplcas and ipaclients
+  hosts: ipaclients
+  roles:
+    - role: redhat.rhel_system_roles.network # Changes IdM clients DNS to point to IdM server for resolution
+  tags: network
+- name: Installs the IdM clients
+  hosts: ipaclients
+  roles:
+    - role: redhat.rhel_idm.ipaclient
+  tags: clients
+----

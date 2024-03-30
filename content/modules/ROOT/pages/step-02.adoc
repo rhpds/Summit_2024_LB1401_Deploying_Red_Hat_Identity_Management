@@ -1,0 +1,127 @@
+= Step 2 - Server configuration
+
+== Inventory
+
+=== Additional variables
+----
+    user_password: "Redhat123"
+## IdM User Creation
+    idm_users: # IPA users
+      - { idm_name: dauston, idm_first: Duncan, idm_last: Auston, id: 10001, ipa_group: idm-users }
+      - { idm_name: anadine, idm_first: Angie, idm_last: Nadine, id: 10002, ipa_group: idm-users }
+      - { idm_name: sbronte, idm_first: Sammy, idm_last: Bronte, id: 10003, ipa_group: idm-users }
+    idm_admins: # IdM admins name
+      - { idm_name: jsmith_idm, idm_first: John, idm_last: Smith, ipa_group: idm-admins }
+      - { idm_name: sjones_idm, idm_first: Susan, idm_last: Jones, ipa_group: idm-admins }
+    idp_admins: # IDP admins
+      - { idm_name: jsmith_azure, idm_first: John, idm_last: Smith, ipa_group: idm-admins, idp_ref: "Entra ID(Azure AD)", idp_name: "jsmith@example.com", authtype: idp }
+      - { idm_name: sjones_azure, idm_first: Susan, idm_last: Jones, ipa_group: idm-admins, idp_ref: "Entra ID(Azure AD)", idp_name: "sjones@example.com", authtype: idp }
+## IdM Group creation
+    idm_groups:
+      - { ipa_group: "idm-users", ipa_grpDesc: "IdM users group" }
+      - { ipa_group: "idm-admins", ipa_grpDesc: "IdM administrators group" }
+    idm_host_group: "ipa_clients" # hostgroup name
+## IdM Defaults
+    idm_shell: "/bin/bash"
+## IdM IDP creation
+    idm_idp:
+      - { idp_name: "Entra ID(Azure AD)", idp_provider: "microsoft", idp_clientid: "Test", idp_secret: "Test", idp_org: "Test" }
+----
+
+=== Current
+----
+all:
+  children:
+    ipaserver:      
+      hosts: 
+        idm.{{ shortname }}.example.opentlc.com:
+  vars:
+# Global variables
+    admin_password: 'C0pper_99' # Administrator password used for all applications
+    root_domain: "example.opentlc.com" # Root domain (also used as Windows domain)
+    shortname: {guid} # Sub-domain
+    domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
+    third: "9" # Third octect of subnet used.
+    user_password: "Redhat123"
+# IdM variables
+    ipaserver_domain: "{{ domain }}"
+    ipaserver_realm: "{{ domain | upper }}"
+    ipaserver_setup_dns: true
+    ipaserver_setup_adtrust: true
+    ipaserver_reverse_zones: "{{ third }}.168.192.in-addr.arpa"
+    ipaserver_allow_zone_overlap: true
+    ipaserver_no_forwarders: true
+    ipaserver_no_dnssec_validation: true
+    ipaserver_netbios_name: "{{ shortname | upper }}"
+    ipaserver_firewalld_zone: public
+    ipaclient_mkhomedir: true
+# IdM password variables, do not use same one for Prod/Dev. Same only for demo/POC
+    ipaadmin_password: "{{ admin_password }}" # IdM admin password
+    ipadm_password: "{{ admin_password }}" # IdM directory manager password
+## IdM User Creation
+    idm_users: # IPA users
+      - { idm_name: dauston, idm_first: Duncan, idm_last: Auston, id: 10001, ipa_group: idm-users }
+      - { idm_name: anadine, idm_first: Angie, idm_last: Nadine, id: 10002, ipa_group: idm-users }
+      - { idm_name: sbronte, idm_first: Sammy, idm_last: Bronte, id: 10003, ipa_group: idm-users }
+    idm_admins: # IdM admins name
+      - { idm_name: jsmith_idm, idm_first: John, idm_last: Smith, ipa_group: idm-admins }
+      - { idm_name: sjones_idm, idm_first: Susan, idm_last: Jones, ipa_group: idm-admins }
+    idp_admins: # IDP admins
+      - { idm_name: jsmith_azure, idm_first: John, idm_last: Smith, ipa_group: idm-admins, idp_ref: "Entra ID(Azure AD)", idp_name: "jsmith@example.com", authtype: idp }
+      - { idm_name: sjones_azure, idm_first: Susan, idm_last: Jones, ipa_group: idm-admins, idp_ref: "Entra ID(Azure AD)", idp_name: "sjones@example.com", authtype: idp }
+## IdM Group creation
+    idm_groups:
+      - { ipa_group: "idm-users", ipa_grpDesc: "IdM users group" }
+      - { ipa_group: "idm-admins", ipa_grpDesc: "IdM administrators group" }
+    idm_host_group: "ipa_clients" # hostgroup name
+## IdM Defaults
+    idm_shell: "/bin/bash"
+## IdM IDP creation
+    idm_idp:
+      - { idp_name: "Entra ID(Azure AD)", idp_provider: "microsoft", idp_clientid: "Test", idp_secret: "Test", idp_org: "Test" }
+----
+
+== Server Playbook
+----
+---
+# Configure IdM
+- name: Setup IDP
+  hosts: ipaserver
+  roles:
+    - role: idm-idp
+  tags:
+    - idp
+- name: Create IdM users
+  hosts: ipaserver
+  roles:
+    - role: idm-users
+  tags: idmUsers
+- name: Create external group for AD Users/Groups
+  hosts: ipaserver
+  roles:
+    - role: idm-groups
+  tags: idmGrps
+- name: Set default shell
+  hosts: ipaserver
+  roles:
+    - role: idm-defaults
+  tags: defaults
+- name: Create client host group
+  hosts: ipaserver
+  become: false
+  roles:
+    - role: idm-hostgroup
+  tags: hostGrp
+- name: Create HBAC Rules
+  hosts: ipaserver
+  become: false
+  roles:
+    - role: idm-hbac
+  tags: hbac
+- name: Create IdM SUDO rules
+  hosts: ipaserver
+  become: false
+  roles:
+    - role: idm-sudo
+  tags: sudo
+----

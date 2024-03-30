@@ -1,0 +1,57 @@
+:stylesheet: css/asciidoctor.css
+:icons: font
+
+= Step 1 Server install
+
+== Inventory
+
+=== Hosts Section
+----
+all:
+  children:
+    ipaserver:
+      hosts:
+        idm.{{ shortname }}.example.opentlc.com:
+----
+
+=== Variable Section
+----
+  vars:
+# Global variables
+    admin_password: 'C0pper_99' # Administrator password used for all applications
+    root_domain: "example.opentlc.com" # Root domain (also used as Windows domain)
+    shortname: {guid} # Sub-domain
+    domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
+    third: "9" # Third octect of subnet used.
+# IdM variables
+    ipaserver_domain: "{{ domain }}"
+    ipaserver_realm: "{{ domain | upper }}"
+    ipaserver_setup_dns: true
+    ipaserver_setup_adtrust: true
+    ipaserver_reverse_zones: "{{ third }}.168.192.in-addr.arpa"
+    ipaserver_allow_zone_overlap: true
+    ipaserver_no_forwarders: true
+    ipaserver_no_dnssec_validation: true
+    ipaserver_netbios_name: "{{ shortname | upper }}"
+    ipaserver_firewalld_zone: public
+    ipaclient_mkhomedir: true
+## IdM password variables, do not use same one for Prod/Dev. Same only for demo/POC
+    ipaadmin_password: "{{ admin_password }}" # IdM admin password
+    ipadm_password: "{{ admin_password }}" # IdM directory manager password
+----
+
+== Server Playbook
+----
+---
+# Installs IdM server and enables DNS PTR sync
+- name: Installs the IdM server
+  hosts: ipaserver
+  roles:
+    - role: redhat.rhel_idm.ipaserver
+  tags: server
+- name: Turn IdM DNS PTR Sync on
+  hosts: ipaserver
+  roles:
+    - role: idm-dns_ptr
+  tags: server
+----
