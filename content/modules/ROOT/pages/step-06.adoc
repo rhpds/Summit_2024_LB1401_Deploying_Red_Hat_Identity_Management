@@ -1,6 +1,7 @@
 = Step 6 - Final look
 
 == Inventory
+[source,init,role=execute,subs=attributes+]
 ----
 all:
   children:
@@ -22,9 +23,9 @@ all:
         client9.{{ shortname }}.example.com:
   vars:
 # Global variables
-    admin_password: 'C0pper_99' # Administrator password used for all applications
+    admin_password: "{admin_pass}" # Administrator password used for all applications
     root_domain: "example.com" # Root domain (also used as Windows domain)
-    shortname: "lab9" # Sub-domain
+    shortname: "{guid}" # Sub-domain
     domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
     third: "9" # Third octect of subnet used.
     user_password: "Redhat123"
@@ -110,6 +111,7 @@ all:
 ----
 
 == Server playbook
+[source,init,role=execute,subs=attributes+]
 ----
 ---
 # Installs IdM server and enables DNS PTR sync

@@ -6,6 +6,7 @@
 == Inventory
 
 === Hosts Section
+[source,init,role=execute,subs=attributes+]
 ----
 all:
   children:
@@ -15,12 +16,13 @@ all:
 ----
 
 === Variable Section
+[source,init,role=execute,subs=attributes+]
 ----
   vars:
 # Global variables
-    admin_password: 'C0pper_99' # Administrator password used for all applications
+    admin_password: "{admin_pass}" # Administrator password used for all applications
     root_domain: "example.opentlc.com" # Root domain (also used as Windows domain)
-    shortname: {guid} # Sub-domain
+    shortname: "{guid}" # Sub-domain
     domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
     third: "9" # Third octect of subnet used.
 # IdM variables
@@ -41,6 +43,7 @@ all:
 ----
 
 == Server Playbook
+[source,init,role=execute,subs=attributes+]
 ----
 ---
 # Installs IdM server and enables DNS PTR sync

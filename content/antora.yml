@@ -12,6 +12,7 @@ asciidoc:
     page-pagination: true
     my_var: "foo"
     guid: my-guid
+    admin_pass: "Password123!"
     ssh_user: devops
     ssh_password: devops
     ssh_command: ssh devops@bastion.{guid}.example.opentlc.com

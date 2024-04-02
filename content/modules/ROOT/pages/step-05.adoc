@@ -2,12 +2,14 @@
 
 == Inventory
 === Additional hosts
+[source,init,role=execute,subs=attributes+]
 ----
     ipareplicas:
       hosts: 
         rep.{{ shortname }}.example.com:   
 ----
 === Additional variables
+[source,init,role=execute,subs=attributes+]
 ----
     ipareplica_no_forwarders: true
     ipareplica_setup_adtrust: true
@@ -21,6 +23,7 @@
       - { idm_srv: "idm.{{ domain }}", idm_ip: "{{ 192.168.{{ third }}.93 }}" }
 ----
 === Current
+[source,init,role=execute,subs=attributes+]
 ----
 all:
   children:
@@ -42,9 +45,9 @@ all:
         client9.{{ shortname }}.example.com:
   vars:
 # Global variables
-    admin_password: 'C0pper_99' # Administrator password used for all applications
+    admin_password: "{admin_pass}" # Administrator password used for all applications
     root_domain: "example.com" # Root domain (also used as Windows domain)
-    shortname: "lab9" # Sub-domain
+    shortname: "{guid}" # Sub-domain
     domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
     third: "9" # Third octect of subnet used.
     user_password: "Redhat123"
@@ -130,6 +133,7 @@ all:
 ----
 
 == Server playbook
+[source,init,role=execute,subs=attributes+]
 ----
 ---
 # Configure IdM replica DNS to point to IdM server and install replica

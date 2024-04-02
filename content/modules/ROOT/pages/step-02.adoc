@@ -3,6 +3,7 @@
 == Inventory
 
 === Additional variables
+[source,init,role=execute,subs=attributes+]
 ----
     user_password: "Redhat123"
 ## IdM User Creation
@@ -29,6 +30,7 @@
 ----
 
 === Current
+[source,init,role=execute,subs=attributes+]
 ----
 all:
   children:
@@ -37,9 +39,9 @@ all:
         idm.{{ shortname }}.example.opentlc.com:
   vars:
 # Global variables
-    admin_password: 'C0pper_99' # Administrator password used for all applications
+    admin_password: "{admin_pass}" # Administrator password used for all applications
     root_domain: "example.opentlc.com" # Root domain (also used as Windows domain)
-    shortname: {guid} # Sub-domain
+    shortname: "{guid}" # Sub-domain
     domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
     third: "9" # Third octect of subnet used.
     user_password: "Redhat123"
@@ -82,6 +84,7 @@ all:
 ----
 
 == Server Playbook
+[source,init,role=execute,subs=attributes+]
 ----
 ---
 # Configure IdM

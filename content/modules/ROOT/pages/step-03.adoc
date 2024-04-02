@@ -2,12 +2,14 @@
 
 == Inventory
 === Additional hosts
+[source,init,role=execute,subs=attributes+]
 ----
     ipaclients:
       hosts: 
         client9.{{ shortname }}.example.opentlc.com:
 ----
 === Additional variables
+[source,init,role=execute,subs=attributes+]
 ----
 # IdM DNS
     idm_dns:
@@ -26,6 +28,7 @@
 ----
 
 === Current
+[source,init,role=execute,subs=attributes+]
 ----
 all:
   children:
@@ -37,9 +40,9 @@ all:
         client9.{{ shortname }}.example.opentlc.com:
   vars:
 # Global variables
-    admin_password: {admin} # Administrator password used for all applications
+    admin_password: "{admin_pass}" # Administrator password used for all applications
     root_domain: "example.opentlc.com" # Root domain (also used as Windows domain)
-    shortname: {guid} # Sub-domain
+    shortname: "{guid}" # Sub-domain
     domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
     third: "9" # Third octect of subnet used.
     user_password: "Redhat123"
@@ -102,6 +105,7 @@ all:
 ----
 
 == Server playbook
+[source,init,role=execute,subs=attributes+]
 ----
 ---
 # Configure client DNS to point to IdM server and install client
