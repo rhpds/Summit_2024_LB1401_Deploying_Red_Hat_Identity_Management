@@ -1,7 +1,6 @@
-* xref:module-01.adoc[1. RPM Native Container]
-** xref:module-01.adoc#repositories[Repositories]
-** xref:module-01.adoc#software[Software]
-
-* xref:module-02.adoc[2. GitHub Sourced Container]
-** xref:module-02.adoc#prerequisites[Install Prerequisites]
-** xref:module-02.adoc#container[Enable Container]
+* xref:step-01.adoc[1. Laying the IdM fuondation.]
+* xref:step-02.adoc[2. Configuring an IdM server.]
+* xref:step-03.adoc[3. Adding an IdM client.]
+* xref:step-04.adoc[4. Setting up Windows, and an Active Directory Trust.]
+* xref:step-05.adoc[5. Adding an IdM Replica.]
+* xref:step-06.adoc[6. Taking a final look.]
