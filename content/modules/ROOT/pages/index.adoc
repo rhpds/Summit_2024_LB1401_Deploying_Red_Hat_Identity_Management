@@ -1,41 +1,27 @@
 = {lab_name}
 
-The `lab_name` var, known as an asciidoc attribute, above was set in `./content/antora.yml` and can be used to set the lab_name or title of your content.
-You are both free to change its value and if you prefer to use a different var name, you can change the value of `lab_name`, for example to `title` in `./content/antora.yml` and then reference it in your content as `\{title}`. +
+Welcome to {lab_name}! We're happy you've joined us for Summit 2024. Whether you are new to Identity Manager (IdM) deployments, or a seasoned IdM administrator, we hope you learn something new about deploying, managing, and maintaining IdM in this lab. 
 
 image::rhel-logo-black.jpg[rhel-logo-black,55%,55%]
 
-== Variables
+== Basics
 
-Other vars can also be set there, such as `ssh_user` and `ssh_password`, and referenced inline in the lab content by using the `\{foo}` syntax.
+Red Hat IdM runs on top of a Red Hat Enterprise Linux (RHEL) server.  No additional entitlement or subscription is required.  IdM is included with RHEL.  If you have a RHEL subscription, you will be able to take most of what you learn in this lab and apply it on your own in your environment.  
 
-This is another var, or asciidoc attribute, from `./content/antora.yml` {my_var}
+We do also cover Windows Active Directory trusts.  This of course requires a licence from Microsoft to do on your own.  
 
-== Writing your lab
+== What will we cover today?
 
-Whatever type of content you are writing we'll refer to your *content* as "your lab" in this document.
+In this lab we will show you how to automate deployments of IdM using the `ansible-freeipa` role.  This role can be leveraged to deploy a brand new system, add in replicas, clients, domain trusts, and continue the ongoing maintenance of your deployment.  
 
-=== Lab structure
+We will cover
 
-Wether you are writing a lab
+* Laying some groundwork for our deployment.
+* Configuring the `ansible-freeipa` role, and deploying a basic IdM environment with it.
+* Adding a client machine to your new IdM domain.
+* Configuring a Microsoft Windows system and a Microsoft Active Directory trust with your IdM domain.
+* Adding in an IdM replica to an existing domain.
 
-* First, we will build a monolithic application already compiled as RPM packages and put it into a container. This will allow us to deploy the application, copy it between machines, and update it separately from the operating system. This process affords us a portable and easily maintained component instead of tightly coupling the application with your operating system maintenance.
-
-* In closing we will build a second container on a different operating system version that makes an application not packaged into RPMs. This will be similar to a web application deployment, positioning the correct files at the right locations. To do this, we will pull a project from GitHub and position the component files within our container image. The purpose of this is to achieve a portable application container that can deploy on several different versions of Red Hat Enterprise Linux. This also provides the benefit of decoupling your application maintenance, which would all happen by building new containers versus operating system maintenance. The container is no longer reliant on the operating system installed on the machine where the application is deployed.
-
-. Now let's examine this cluster a bit more by describing the cluster (the `$GUID` environment variable is already set for you so you can immediately describe your individual cluster):
-+
-[source,sh,role=execute]
-----
-podman ps
-----
-+
-.Sample Output
-[source,texinfo,subs="attributes"]
-----
-CONTAINER ID  IMAGE                        COMMAND           CREATED      STATUS      PORTS                 NAMES
-2dcfee9e50c4  docker.io/library/httpd:2.4  httpd-foreground  3 hours ago  Up 3 hours  0.0.0.0:8080->80/tcp  showroom-httpd
-----
 
 === Lab Access
 
