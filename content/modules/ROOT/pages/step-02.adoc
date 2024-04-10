@@ -1,5 +1,6 @@
 = Step 2 - Server configuration
 
+[#inventory]
 == Inventory
 
 === Additional variables
@@ -83,6 +84,7 @@ all:
       - { idp_name: "Entra ID(Azure AD)", idp_provider: "microsoft", idp_clientid: "Test", idp_secret: "Test", idp_org: "Test" }
 ----
 
+[#playbook]
 == Server Playbook
 [source,init,role=execute,subs=attributes+]
 ----

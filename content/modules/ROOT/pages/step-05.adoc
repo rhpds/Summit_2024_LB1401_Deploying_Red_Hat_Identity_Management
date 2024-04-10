@@ -1,5 +1,6 @@
 = Step 5 - Replica install
 
+[#inventory]
 == Inventory
 === Additional hosts
 [source,init,role=execute,subs=attributes+]
@@ -132,6 +133,7 @@ all:
     idm_DNS2: "192.168.{{ third }}.93" # replica IdM IP address
 ----
 
+[#playbook]
 == Server playbook
 [source,init,role=execute,subs=attributes+]
 ----

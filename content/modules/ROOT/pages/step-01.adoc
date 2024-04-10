@@ -3,6 +3,7 @@
 
 = Step 1 Server install
 
+[#inventory]
 == Inventory
 
 === Hosts Section
@@ -42,6 +43,7 @@ all:
     ipadm_password: "{{ admin_password }}" # IdM directory manager password
 ----
 
+[#playbook]
 == Server Playbook
 [source,init,role=execute,subs=attributes+]
 ----

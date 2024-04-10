@@ -1,5 +1,6 @@
 = Step 3 - Client install
 
+[#inventory]
 == Inventory
 === Additional hosts
 [source,init,role=execute,subs=attributes+]
@@ -104,6 +105,7 @@ all:
         gateway4: "{{ ansible_default_ipv4.gateway }}"
 ----
 
+[#playbook]
 == Server playbook
 [source,init,role=execute,subs=attributes+]
 ----

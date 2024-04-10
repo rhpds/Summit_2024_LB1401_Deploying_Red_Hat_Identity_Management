@@ -1,5 +1,6 @@
 = Step 4 - Windows setup and AD trust
 
+[#inventory]
 == Inventory
 === Additional hosts
 [source,init,role=execute,subs=attributes+]
@@ -134,6 +135,7 @@ all:
     ad_admin_password: "{{ admin_password }}" # AD administrator password
 ----
 
+[#playbook]
 == Server playbook
 [source,init,role=execute,subs=attributes+]
 ----

@@ -1,5 +1,6 @@
 = Step 6 - Final look
 
+[#inventory]
 == Inventory
 [source,init,role=execute,subs=attributes+]
 ----
@@ -110,6 +111,7 @@ all:
     idm_DNS2: "192.168.{{ third }}.93" # replica IdM IP address
 ----
 
+[#playbook]
 == Server playbook
 [source,init,role=execute,subs=attributes+]
 ----
