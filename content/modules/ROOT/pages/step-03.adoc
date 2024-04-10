@@ -7,14 +7,14 @@
 ----
     ipaclients:
       hosts: 
-        client9.{{ shortname }}.example.opentlc.com:
+        bastion.{{ shortname }}.example.com:
 ----
 === Additional variables
 [source,init,role=execute,subs=attributes+]
 ----
 # IdM DNS
     idm_dns:
-      - { idm_srv: "idm.{{ domain }}", idm_ip: "{{ 192.168.{{ third }}.92 }}" }
+      - { idm_srv: "node1.{{ domain }}", idm_ip: "{{ 192.168.{{ third }}.92 }}" }
 # RHEL variables
     network_connections:
     - name: "{{ ansible_default_ipv4.alias }}"
@@ -35,15 +35,15 @@ all:
   children:
     ipaserver:      
       hosts: 
-        idm.{{ shortname }}.example.opentlc.com:
+        node1.{{ shortname }}.example.com:
     ipaclients:
       hosts: 
-        client9.{{ shortname }}.example.opentlc.com:
+        bastion.{{ shortname }}.example.com:
   vars:
 # Global variables
     admin_password: "{admin_pass}" # Administrator password used for all applications
-    root_domain: "example.opentlc.com" # Root domain (also used as Windows domain)
-    shortname: "{guid}" # Sub-domain
+    root_domain: "example.com" # Root domain (also used as Windows domain)
+    shortname: "idm" # Sub-domain
     domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
     third: "9" # Third octect of subnet used.
     user_password: "Redhat123"
@@ -91,7 +91,7 @@ all:
       - { idp_name: "Entra ID(Azure AD)", idp_provider: "microsoft", idp_clientid: "Test", idp_secret: "Test", idp_org: "Test" }
 # IdM DNS
     idm_dns:
-      - { idm_srv: "idm.{{ domain }}", idm_ip: "{{ 192.168.{{ third }}.92 }}" }
+      - { idm_srv: "node1.{{ domain }}", idm_ip: "{{ 192.168.{{ third }}.92 }}" }
 # RHEL variables
     network_connections:
     - name: "{{ ansible_default_ipv4.alias }}"

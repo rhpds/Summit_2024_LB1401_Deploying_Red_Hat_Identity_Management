@@ -37,12 +37,12 @@ all:
   children:
     ipaserver:      
       hosts: 
-        idm.{{ shortname }}.example.opentlc.com:
+        node1.{{ shortname }}.example.com:
   vars:
 # Global variables
     admin_password: "{admin_pass}" # Administrator password used for all applications
-    root_domain: "example.opentlc.com" # Root domain (also used as Windows domain)
-    shortname: "{guid}" # Sub-domain
+    root_domain: "example.com" # Root domain (also used as Windows domain)
+    shortname: "idm" # Sub-domain
     domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
     third: "9" # Third octect of subnet used.
     user_password: "Redhat123"
