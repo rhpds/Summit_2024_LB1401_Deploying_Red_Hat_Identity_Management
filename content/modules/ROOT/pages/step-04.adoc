@@ -48,10 +48,10 @@ all:
           ansible_password: "{{ ad_admin_password }}"
     ipaserver:      
       hosts: 
-        node1.{{ shortname }}.example.com:
+        idm-gui.{{ shortname }}.example.com:
     ipaclients:
       hosts: 
-        bastion.{{ shortname }}.example.com:
+        node2.{{ shortname }}.example.com:
   vars:
 # Global variables
     admin_password: "{ssh_password}" # Administrator password used for all applications
@@ -71,8 +71,7 @@ all:
     ipaserver_no_dnssec_validation: true
     ipaserver_netbios_name: "{{ shortname | upper }}"
     ipaserver_firewalld_zone: public
-    ipaserver_forwarders: "192.168.0.2"
-    ipaserver_forward_policy: first
+    ipareplica_no_forwarders: true
     ipareplica_setup_adtrust: true
     ipareplica_no_dnssec_validation: true
     ipareplica_setup_ca: true
@@ -105,7 +104,7 @@ all:
       - { idp_name: "Entra ID(Azure AD)", idp_provider: "microsoft", idp_clientid: "Test", idp_secret: "Test", idp_org: "Test" }
 # IdM DNS
     idm_dns:
-      - { idm_srv: "node1.{{ domain }}", idm_ip: "192.168.{{ third }}.92" }
+      - { idm_srv: "idm-gui.{{ domain }}", idm_ip: "192.168.{{ third }}.92" }
 # RHEL variables
     network_connections:
     - name: "{{ ansible_default_ipv4.alias }}"

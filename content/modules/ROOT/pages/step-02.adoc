@@ -37,7 +37,7 @@ all:
   children:
     ipaserver:      
       hosts: 
-        node1.{{ shortname }}.example.com:
+        idm-gui.{{ shortname }}.example.com:
   vars:
 # Global variables
     admin_password: "{ssh_password}" # Administrator password used for all applications
@@ -53,8 +53,7 @@ all:
     ipaserver_setup_adtrust: true
     ipaserver_reverse_zones: "{{ third }}.168.192.in-addr.arpa"
     ipaserver_allow_zone_overlap: true
-    ipaserver_forwarders: "192.168.0.2"
-    ipaserver_forward_policy: first
+    ipaserver_no_forwarders: true
     ipaserver_no_dnssec_validation: true
     ipaserver_netbios_name: "{{ shortname | upper }}"
     ipaserver_firewalld_zone: public

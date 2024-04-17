@@ -7,7 +7,7 @@
 ----
     ipareplicas:
       hosts: 
-        node2.{{ shortname }}.example.com:   
+        node1.{{ shortname }}.example.com:   
 ----
 === Additional variables
 [source,init,role=execute,subs=attributes+]
@@ -20,8 +20,8 @@
     ipareplica_firewalld_zone: public
 # IdM DNS
     idm_dns:
-      - { idm_srv: "node1.{{ domain }}", idm_ip: "{{ 192.168.{{ third }}.92 }}" }
-      - { idm_srv: "node1.{{ domain }}", idm_ip: "{{ 192.168.{{ third }}.93 }}" }
+      - { idm_srv: "idm-gui.{{ domain }}", idm_ip: "192.168.{{ third }}.92" }
+      - { idm_srv: "node1.{{ domain }}", idm_ip: "192.168.{{ third }}.93" }
 ----
 === Current
 [source,init,role=execute,subs=attributes+]
@@ -37,13 +37,13 @@ all:
           ansible_password: "{{ ad_admin_password }}"
     ipaserver:      
       hosts: 
-        node1.{{ shortname }}.example.com:
+        idm-gui.{{ shortname }}.example.com:
     ipareplicas:
       hosts: 
-        node2.{{ shortname }}.example.com:    
+        node1.{{ shortname }}.example.com:    
     ipaclients:
       hosts: 
-        bastion.{{ shortname }}.example.com:
+        node2.{{ shortname }}.example.com:
   vars:
 # Global variables
     admin_password: "{ssh_password}" # Administrator password used for all applications
@@ -97,11 +97,8 @@ all:
       - { idp_name: "Entra ID(Azure AD)", idp_provider: "microsoft", idp_clientid: "Test", idp_secret: "Test", idp_org: "Test" }
 # IdM DNS
     idm_dns:
-      - { idm_srv: "node1.{{ domain }}", idm_ip: "192.168.{{ third }}.92" }
+      - { idm_srv: "idm-gui.{{ domain }}", idm_ip: "192.168.{{ third }}.92" }
       - { idm_srv: "node1.{{ domain }}", idm_ip: "192.168.{{ third }}.93" }
-# IdM server DNS
-    idm_pri: "node1.{{ domain }}"
-    idm_DNS1: "192.168.{{ third }}.92" # primary IdM IP address
 # RHEL variables
     network_connections:
     - name: "{{ ansible_default_ipv4.alias }}"
@@ -110,7 +107,7 @@ all:
       persistent_state: present
       ip:
         dhcp4: false
-        dns: "{{ idm_DNS1 }}"
+        dns: "{{ idm_dns[0].idm_ip }}"
         address: "{{ ansible_default_ipv4.address }}/24"
         gateway4: "{{ ansible_default_ipv4.gateway }}"
 ### Windows DNS
@@ -130,8 +127,7 @@ all:
       - { ad_name: aduser3, ad_first: AD, ad_last: User3 }
     ad_admin: "Administrator" # AD administrator name
     ad_admin_password: "{{ admin_password }}" # AD administrator password
-    idm_rep: "node2.{{ domain }}"
-    idm_DNS2: "192.168.{{ third }}.93" # replica IdM IP address
+
 ----
 
 [#playbook]
