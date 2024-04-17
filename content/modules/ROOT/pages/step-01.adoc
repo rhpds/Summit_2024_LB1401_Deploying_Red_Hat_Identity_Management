@@ -13,7 +13,7 @@ all:
   children:
     ipaserver:
       hosts:
-        idm-gui.{{ shortname }}.example.com:
+        idmsrv.{{ shortname }}.example.com:
 ----
 
 === Variable Section

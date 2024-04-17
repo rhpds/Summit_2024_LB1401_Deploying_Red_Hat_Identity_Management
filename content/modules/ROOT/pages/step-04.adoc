@@ -48,7 +48,7 @@ all:
           ansible_password: "{{ ad_admin_password }}"
     ipaserver:      
       hosts: 
-        idm-gui.{{ shortname }}.example.com:
+        idmsrv.{{ shortname }}.example.com:
     ipaclients:
       hosts: 
         node2.{{ shortname }}.example.com:
@@ -104,7 +104,7 @@ all:
       - { idp_name: "Entra ID(Azure AD)", idp_provider: "microsoft", idp_clientid: "Test", idp_secret: "Test", idp_org: "Test" }
 # IdM DNS
     idm_dns:
-      - { idm_srv: "idm-gui.{{ domain }}", idm_ip: "192.168.{{ third }}.92" }
+      - { idm_srv: "idmsrv.{{ domain }}", idm_ip: "192.168.{{ third }}.92" }
 # RHEL variables
     network_connections:
     - name: "{{ ansible_default_ipv4.alias }}"
