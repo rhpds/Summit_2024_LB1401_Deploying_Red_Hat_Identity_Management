@@ -60,6 +60,7 @@ all:
     ipaserver_reverse_zones: "{{ third }}.168.192.in-addr.arpa"
     ipaserver_allow_zone_overlap: true
     ipaserver_forwarders: "192.168.0.2"
+    ipaserver_forward_policy: first
     ipaserver_no_dnssec_validation: true
     ipaserver_netbios_name: "{{ shortname | upper }}"
     ipaserver_firewalld_zone: public
