@@ -10,9 +10,6 @@ asciidoc:
     lab_name: "Deploying Red Hat Identity Management as a lazy sysadmin"
     release-version: master
     page-pagination: true
-    my_var: "foo"
-    guid: my-guid
-    admin_pass: "MTU5OTYy"
     ssh_user: lab-user
     page-links:
     - url: https://redhat.com

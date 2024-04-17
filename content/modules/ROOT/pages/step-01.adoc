@@ -21,7 +21,7 @@ all:
 ----
   vars:
 # Global variables
-    admin_password: "{admin_pass}" # Administrator password used for all applications
+    admin_password: "{ ssh_password }" # Administrator password used for all applications
     root_domain: "example.com" # Root domain (also used as Windows domain)
     shortname: "idm" # Sub-domain
     domain: "{{ shortname }}.{{ root_domain }}" # Full domain name

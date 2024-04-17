@@ -97,8 +97,8 @@ all:
       - { idp_name: "Entra ID(Azure AD)", idp_provider: "microsoft", idp_clientid: "Test", idp_secret: "Test", idp_org: "Test" }
 # IdM DNS
     idm_dns:
-      - { idm_srv: "node1.{{ domain }}", idm_ip: "{{ 192.168.{{ third }}.92 }}" }
-      - { idm_srv: "node1.{{ domain }}", idm_ip: "{{ 192.168.{{ third }}.93 }}" }
+      - { idm_srv: "node1.{{ domain }}", idm_ip: "192.168.{{ third }}.92" }
+      - { idm_srv: "node1.{{ domain }}", idm_ip: "192.168.{{ third }}.93" }
 # IdM server DNS
     idm_pri: "node1.{{ domain }}"
     idm_DNS1: "192.168.{{ third }}.92" # primary IdM IP address
