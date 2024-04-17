@@ -44,7 +44,7 @@ all:
     root_domain: "example.com" # Root domain (also used as Windows domain)
     shortname: "idm" # Sub-domain
     domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
-    third: "9" # Third octect of subnet used.
+    third: "0" # Third octect of subnet used.
     user_password: "Redhat123"
 # IdM variables
     ipaserver_domain: "{{ domain }}"
