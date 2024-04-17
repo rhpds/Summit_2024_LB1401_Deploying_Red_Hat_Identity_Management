@@ -1,6 +1,6 @@
 = {lab_name}
 
-Welcome to {lab_name}! We're happy you've joined us for Summit 2024. Whether you are new to Identity Manager (IdM) deployments, or a seasoned IdM administrator, we hope you learn something new about deploying, managing, and maintaining IdM in this lab. 
+Welcome to {lab_name}!  We're happy you've joined us for Red Hat Summit 2024.  Whether you are new to Identity Manager (IdM) deployments, or a seasoned IdM administrator, we hope you learn something new about deploying, managing, and maintaining IdM in this lab. 
 
 image::rhel-logo-black.jpg[rhel-logo-black,55%,55%]
 
@@ -8,16 +8,16 @@ image::rhel-logo-black.jpg[rhel-logo-black,55%,55%]
 
 Red Hat IdM runs on top of a Red Hat Enterprise Linux (RHEL) server.  No additional entitlement or subscription is required.  IdM is included with RHEL.  If you have a RHEL subscription, you will be able to take most of what you learn in this lab and apply it on your own in your environment.  
 
-We do also cover Windows Active Directory trusts.  This of course requires a licence from Microsoft to do on your own.  
+We will also cover Windows Active Directory trusts.  This of course requires a licence from Microsoft to do on your own.  
 
 == What will we cover today?
 
-In this lab we will show you how to automate deployments of IdM using the `ansible-freeipa` role.  This role can be leveraged to deploy a brand new system, add in replicas, clients, domain trusts, and continue the ongoing maintenance of your deployment.  
+In this lab we will show you how to automate deployments of IdM using the `rhel_idm` or the `ansible-freeipa` role.  This role can be leveraged to deploy a brand new system, add in replicas, clients, domain trusts, and continue the ongoing maintenance of your deployment.  
 
-We will cover
+We will cover:
 
 * Laying some groundwork for our deployment.
-* Configuring the `ansible-freeipa` role, and deploying a basic IdM environment with it.
+* Deploying a basic IdM environment and configuring it with the `rhel_idm` role, with it.
 * Adding a client machine to your new IdM domain.
 * Configuring a Microsoft Windows system and a Microsoft Active Directory trust with your IdM domain.
 * Adding in an IdM replica to an existing domain.

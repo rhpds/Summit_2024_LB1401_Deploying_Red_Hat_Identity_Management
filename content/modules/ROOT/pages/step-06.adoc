@@ -1,4 +1,7 @@
 = Step 6 - Final look
+:hide-uri-scheme:
+Once everything is installed, click on https://node1.idm.example.com[IdM GUI].
+
 
 [#inventory]
 == Inventory
@@ -37,11 +40,11 @@ all:
     ipaserver_setup_adtrust: true
     ipaserver_reverse_zones: "{{ third }}.168.192.in-addr.arpa"
     ipaserver_allow_zone_overlap: true
-    ipaserver_no_forwarders: true
+    ipaserver_forwarders: "192.168.0.2"
     ipaserver_no_dnssec_validation: true
     ipaserver_netbios_name: "{{ shortname | upper }}"
     ipaserver_firewalld_zone: public
-    ipareplica_no_forwarders: true
+    ipareplica_forwarders: "192.168.0.2"
     ipareplica_setup_adtrust: true
     ipareplica_no_dnssec_validation: true
     ipareplica_setup_ca: true

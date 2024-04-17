@@ -25,7 +25,7 @@ all:
     root_domain: "example.com" # Root domain (also used as Windows domain)
     shortname: "idm" # Sub-domain
     domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
-    third: "9" # Third octect of subnet used.
+    third: "0" # Third octect of subnet used.
 # IdM variables
     ipaserver_domain: "{{ domain }}"
     ipaserver_realm: "{{ domain | upper }}"
@@ -33,7 +33,7 @@ all:
     ipaserver_setup_adtrust: true
     ipaserver_reverse_zones: "{{ third }}.168.192.in-addr.arpa"
     ipaserver_allow_zone_overlap: true
-    ipaserver_no_forwarders: true
+    ipaserver_forwarders: "192.168.0.2"
     ipaserver_no_dnssec_validation: true
     ipaserver_netbios_name: "{{ shortname | upper }}"
     ipaserver_firewalld_zone: public

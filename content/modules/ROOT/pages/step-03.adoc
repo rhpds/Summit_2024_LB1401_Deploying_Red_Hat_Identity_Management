@@ -14,7 +14,7 @@
 ----
 # IdM DNS
     idm_dns:
-      - { idm_srv: "node1.{{ domain }}", idm_ip: "{{ 192.168.{{ third }}.92 }}" }
+      - { idm_srv: "node1.{{ domain }}", idm_ip: "192.168.{{ third }}.92" }
 # RHEL variables
     network_connections:
     - name: "{{ ansible_default_ipv4.alias }}"
@@ -23,7 +23,7 @@
       persistent_state: present
       ip:
         dhcp4: false
-        dns: "{{ idm_DNS1 }}"
+        dns: "{{ idm_dns[0].idm_ip }}"
         address: "{{ ansible_default_ipv4.address }}/24"
         gateway4: "{{ ansible_default_ipv4.gateway }}"
 ----
@@ -54,7 +54,7 @@ all:
     ipaserver_setup_adtrust: true
     ipaserver_reverse_zones: "{{ third }}.168.192.in-addr.arpa"
     ipaserver_allow_zone_overlap: true
-    ipaserver_no_forwarders: true
+    ipaserver_forwarders: "192.168.0.2"
     ipaserver_no_dnssec_validation: true
     ipaserver_netbios_name: "{{ shortname | upper }}"
     ipaserver_firewalld_zone: public
@@ -91,7 +91,7 @@ all:
       - { idp_name: "Entra ID(Azure AD)", idp_provider: "microsoft", idp_clientid: "Test", idp_secret: "Test", idp_org: "Test" }
 # IdM DNS
     idm_dns:
-      - { idm_srv: "node1.{{ domain }}", idm_ip: "{{ 192.168.{{ third }}.92 }}" }
+      - { idm_srv: "node1.{{ domain }}", idm_ip: "192.168.{{ third }}.92" }
 # RHEL variables
     network_connections:
     - name: "{{ ansible_default_ipv4.alias }}"
@@ -100,7 +100,9 @@ all:
       persistent_state: present
       ip:
         dhcp4: false
-        dns: "{{ idm_DNS1 }}"
+        dns: 
+          - "{{ idm_dns[0].idm_ip }}"
+          - 192.168.0.2
         address: "{{ ansible_default_ipv4.address }}/24"
         gateway4: "{{ ansible_default_ipv4.gateway }}"
 ----
