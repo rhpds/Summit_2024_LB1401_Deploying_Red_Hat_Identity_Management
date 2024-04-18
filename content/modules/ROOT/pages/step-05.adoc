@@ -150,14 +150,15 @@ all:
     - role: redhat.rhel_idm.ipareplica
   tags: replicas
 # Add IdM replica to delegated DNS in AD
-- name: Delegate IdM Zone to IdM Primary
+- name: Add IdM Replica to AD DNS Delegate Zone
   hosts: win
   become_method: runas
   become_user: Administrator
-  become_user_password: "{{ ad_admin_password }}"
   become: false
-  tasks:
-  - ansible.windows.win_powershell:
-    script: Add-DnsServerZoneDelegation -Name "{{ root_domain }}" -ChildZoneName "{{ shortname }}" -NameServer "{{ idm_dns[1].idm_srv }}" -IPAddress "{{ idm_dns[1].idm_ip }}"
+  roles:
+  - role: win_delegate # Delegates sub-domain to IdM
+    vars: 
+      idmsrv: "{{ idm_dns[1].idm_srv }}"
+      idmip: "{{ idm_dns[1].idm_ip }}"
   tags: win3
 ----

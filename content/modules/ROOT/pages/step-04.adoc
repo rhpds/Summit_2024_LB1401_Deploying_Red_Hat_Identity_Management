@@ -161,8 +161,10 @@ all:
   become_user: Administrator
   become: false
   roles:
-    - role: win_delegate # Delegates sub-domain to IdM
-      state: present
+  - role: win_delegate # Delegates sub-domain to IdM
+    vars: 
+      idmsrv: "{{ idm_dns[0].idm_srv }}"
+      idmip: "{{ idm_dns[0].idm_ip }}"
   tags: win2
 # Create AD Trust
 - name: Sets up the AD trust.
