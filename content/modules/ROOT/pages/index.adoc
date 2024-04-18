@@ -30,4 +30,4 @@ All steps of this lab are to be completed as the `{ssh_user}` user on the bastio
 
 To access the IdM GUI once you have installed it in `Step 1`, you will need to open a browser, got to settings, type "proxy" in the search bar in the top right corner and click settings. Select "Manual proxy configuration" and go to "SOCKS Host" and put in localhost and for the "Port" put in 5060. Finally check the checkbox for "Proxy DNS when using SOCKS v5".
 
-Finally you will need to open a terminal window and ssh -D 5060 -C -N {ssh_command}
+Finally you will need to open a terminal window and run {socks_ssh_command}
