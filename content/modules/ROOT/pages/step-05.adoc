@@ -20,8 +20,8 @@
     ipareplica_firewalld_zone: public
 # IdM DNS
     idm_dns:
-      - { idm_srv: "idmsrv.{{ domain }}", idm_ip: "192.168.{{ third }}.92" }
-      - { idm_srv: "node1.{{ domain }}", idm_ip: "192.168.{{ third }}.93" }
+      - { idm_srv: "idmsrv.{{ domain }}", idm_ip: "{{ idmpri_ip }}" }
+      - { idm_srv: "node1.{{ domain }}", idm_ip: "{{ idmrep_ip }}" }
 ----
 === Current
 [source,init,role=execute,subs=attributes+]
@@ -52,6 +52,8 @@ all:
     domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
     third: "0" # Third octect of subnet used.
     user_password: "Redhat123"
+    idmpri_ip: "{idmsrv_ip}"
+    idmrep_ip: "{node1_ip}"
 # IdM variables
     ipaserver_domain: "{{ domain }}"
     ipaserver_realm: "{{ domain | upper }}"

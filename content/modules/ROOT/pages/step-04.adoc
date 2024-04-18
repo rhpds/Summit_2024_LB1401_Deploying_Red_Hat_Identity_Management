@@ -60,6 +60,7 @@ all:
     domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
     third: "0" # Third octect of subnet used.
     user_password: "Redhat123"
+    idmpri_ip: "{idmsrv_ip}"
 # IdM variables
     ipaserver_domain: "{{ domain }}"
     ipaserver_realm: "{{ domain | upper }}"
@@ -104,7 +105,7 @@ all:
       - { idp_name: "Entra ID(Azure AD)", idp_provider: "microsoft", idp_clientid: "Test", idp_secret: "Test", idp_org: "Test" }
 # IdM DNS
     idm_dns:
-      - { idm_srv: "idmsrv.{{ domain }}", idm_ip: "192.168.{{ third }}.92" }
+      - { idm_srv: "idmsrv.{{ domain }}", idm_ip: "{{ idmpri_ip }}" }
 # RHEL variables
     network_connections:
     - name: "{{ ansible_default_ipv4.alias }}"
