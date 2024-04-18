@@ -16,8 +16,10 @@
 === Additional variables
 [source,init,role=execute,subs=attributes+]
 ----
+# Global variables
+winsrv_ip: "{windows_ip}"
 ### Windows DNS
-    ad_ip: "192.168.{{ third }}.5" # AD IP
+    ad_ip: "{{ winsrv_ip }}" # AD IP
 # Windows variables
     ad_netbios: "EXAMPLE"
 ## AD Enterprise User/Group Creation
@@ -61,6 +63,7 @@ all:
     third: "0" # Third octect of subnet used.
     user_password: "Redhat123"
     idmpri_ip: "{idmsrv_ip}"
+    winsrv_ip: "{windows_ip}"
 # IdM variables
     ipaserver_domain: "{{ domain }}"
     ipaserver_realm: "{{ domain | upper }}"
@@ -118,7 +121,7 @@ all:
         address: "{{ ansible_default_ipv4.address }}/24"
         gateway4: "{{ ansible_default_ipv4.gateway }}"
 ### Windows DNS
-    ad_ip: "192.168.{{ third }}.5" # AD IP
+    ad_ip: "{{ winsrv_ip }}" # AD IP
 # Windows variables
     ad_netbios: "EXAMPLE"
 ## AD Enterprise User/Group Creation
