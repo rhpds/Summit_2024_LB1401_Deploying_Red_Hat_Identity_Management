@@ -61,3 +61,11 @@ all:
     - role: idm-dns_ptr
   tags: server
 ----
+
+[#Browser]
+== Accessing the browser
+First, open a terminal window and run `{socks_ssh_command}` using the password `{admin_pass}`.
+
+Next, open the `Firefox` browser, and click the 3 horizontal lines on the search bar line, click on `Settings`, type proxy in the `Find in Settings` search bar.
+
+Once the `Network Settings` shows up, click `Settings` and select `Manual proxy configuration`. Add set the `SOCKS Host` to localhost and `Port` to 5060. Finally check the checkbox for `Proxy DNS when using SOCKS v5`.
