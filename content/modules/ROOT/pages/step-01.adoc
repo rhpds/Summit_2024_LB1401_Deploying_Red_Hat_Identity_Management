@@ -3,6 +3,8 @@
 
 = Step 1 Server install
 
+You need to go to the terminal to the right and cd to conf24, which will be the directory we work out of. It already has the roles you will use for this lab, plus and ansible.cfg file.
+
 [#inventory]
 == Inventory
 
