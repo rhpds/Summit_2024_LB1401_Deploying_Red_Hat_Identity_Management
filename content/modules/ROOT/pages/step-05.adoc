@@ -109,8 +109,9 @@ all:
       type: ethernet
       persistent_state: present
       ip:
-        dhcp4: false
-        dns: "{{ idm_dns[0].idm_ip }}"
+        dns: 
+          - "{{ idm_dns[0].idm_ip }}"
+          - 192.168.0.2
         address: "{{ ansible_default_ipv4.address }}/24"
         gateway4: "{{ ansible_default_ipv4.gateway }}"
 ### Windows DNS
