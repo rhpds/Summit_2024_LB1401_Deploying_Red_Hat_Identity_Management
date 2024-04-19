@@ -1,4 +1,4 @@
-* xref:step-01.adoc[1. Laying the IdM fuondation.]
+* xref:step-01.adoc[1. Laying the IdM foundation.]
 ** xref:step-01#inventory[Inventory file]
 ** xref:step-01.adoc#playbook[Playbook]
 
