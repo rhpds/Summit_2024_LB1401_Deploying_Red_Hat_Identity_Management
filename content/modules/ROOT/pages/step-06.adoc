@@ -15,7 +15,7 @@ all:
           ansible_connection: winrm
           ansible_winrm_server_cert_validation: ignore
           ansible_user: Administrator
-          ansible_password: "{{ ad_admin_password }}"
+          ansible_password: "{{ admin_password }}"
     ipaserver:      
       hosts: 
         idmsrv.{{ shortname }}.example.com:
@@ -28,7 +28,6 @@ all:
   vars:
 # Global variables
     admin_password: "{ssh_password}" # Administrator password used for all applications
-    ad_admin_password: "{ssh_password}"
     root_domain: "example.com" # Root domain (also used as Windows domain)
     shortname: "idm" # Sub-domain
     domain: "{{ shortname }}.{{ root_domain }}" # Full domain name
@@ -113,7 +112,6 @@ all:
       - { ad_name: aduser2, ad_first: AD, ad_last: User2 }
       - { ad_name: aduser3, ad_first: AD, ad_last: User3 }
     ad_admin: "Administrator" # AD administrator name
-    ad_admin_password: "{{ ad_admin_password }}" # AD administrator password
 ----
 
 [#playbook]
@@ -231,7 +229,7 @@ all:
   hosts: win
   become_method: runas
   become_user: Administrator
-  become_user_password: "{{ ad_admin_password }}"
+  become_user_password: "{{ admin_password }}"
   become: false
   tasks:
   - ansible.windows.win_powershell:
