@@ -1,7 +1,5 @@
 = Step 6 - Final look
 
-Once everything is installed, click on https://node1.idm.example.com[IdM GUI].
-
 
 [#inventory]
 == Inventory
