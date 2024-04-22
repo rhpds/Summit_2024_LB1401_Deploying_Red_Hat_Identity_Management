@@ -10,8 +10,8 @@ all:
     win:
       hosts:
         windows.example.com:
-          ansible_connection: winrm
-          ansible_winrm_server_cert_validation: ignore
+          ansible_connection: ssh
+          ansible_shell_type: cmd
           ansible_user: Administrator
           ansible_password: "{{ admin_password }}"
     ipaserver:      
@@ -82,9 +82,6 @@ all:
     idm_dns:
       - { idm_srv: "idmsrv.{{ domain }}", idm_ip: "{{ idmpri_ip }}" }
       - { idm_srv: "node1.{{ domain }}", idm_ip: "{{ idmrep_ip }}" }
-# IdM server DNS
-    idm_pri: "node1.{{ domain }}"
-    idm_DNS1: "192.168.{{ third }}.92" # primary IdM IP address
 # RHEL variables
     network_connections:
     - name: "{{ ansible_default_ipv4.alias }}"
