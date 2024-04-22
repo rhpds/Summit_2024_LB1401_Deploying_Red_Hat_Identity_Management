@@ -8,8 +8,8 @@
     win:
       hosts:
         windows.example.com:
-          ansible_connection: winrm
-          ansible_winrm_server_cert_validation: ignore
+          ansible_connection: ssh
+          ansible_shell_type: cmd
           ansible_user: Administrator
           ansible_password: "{{ admin_password }}"
 ----
