@@ -12,9 +12,11 @@
 === Additional variables
 [source,init,role=execute,subs=attributes+]
 ----
+# Global variables
+    idmpri_ip: "{idmsrv_ip}"
 # IdM DNS
     idm_dns:
-      - { idm_srv: "node1.{{ domain }}", idm_ip: "192.168.{{ third }}.92" }
+      - { idm_srv: "idmsrv.{{ domain }}", idm_ip: "{{ idmpri_ip }}" }
 # RHEL variables
     network_connections:
     - name: "{{ ansible_default_ipv4.alias }}"
