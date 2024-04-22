@@ -12,6 +12,9 @@
 === Additional variables
 [source,init,role=execute,subs=attributes+]
 ----
+# Global variables
+    idmrep_ip: "{node1_ip}"
+# IdM variables
     ipareplica_no_forwarders: true
     ipareplica_setup_adtrust: true
     ipareplica_no_dnssec_validation: true
@@ -20,7 +23,6 @@
     ipareplica_firewalld_zone: public
 # IdM DNS
     idm_dns:
-      - { idm_srv: "idmsrv.{{ domain }}", idm_ip: "{{ idmpri_ip }}" }
       - { idm_srv: "node1.{{ domain }}", idm_ip: "{{ idmrep_ip }}" }
 ----
 === Current
