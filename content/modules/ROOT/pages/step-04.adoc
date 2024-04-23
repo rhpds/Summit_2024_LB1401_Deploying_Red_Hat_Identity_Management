@@ -17,7 +17,7 @@
 [source,init,role=execute,subs=attributes+]
 ----
 # Global variables
-winsrv_ip: "{windows_ip}"
+    winsrv_ip: "{windows_ip}"
 ### Windows DNS
     ad_ip: "{{ winsrv_ip }}" # AD IP
 # Windows variables
