@@ -1,6 +1,6 @@
 ---
 name: modules
-title: Sample Module Title
+title: Deploying Red Hat Identity Management as a lazy sysadmin
 version: master
 nav:
   - modules/ROOT/nav.adoc
