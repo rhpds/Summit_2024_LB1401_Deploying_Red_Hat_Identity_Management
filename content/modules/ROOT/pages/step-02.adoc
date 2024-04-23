@@ -6,6 +6,7 @@
 === Additional variables
 [source,init,role=execute,subs=attributes+]
 ----
+# Global vaiables
     user_password: "Redhat123"
 ## IdM User Creation
     idm_users: # IPA users
